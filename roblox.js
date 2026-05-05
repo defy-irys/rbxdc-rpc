@@ -30,4 +30,16 @@ async function getGameInfo(placeId) {
   }
 }
 
-module.exports = { getPresence, getGameInfo };
+async function getUsername(userId) {
+  try {
+    const res = await axios.get(
+      `https://users.roblox.com/v1/users/${userId}`
+    );
+
+    return res.data?.name || null;
+  } catch {
+    return null;
+  }
+}
+
+module.exports = { getPresence, getGameInfo, getUsername };
