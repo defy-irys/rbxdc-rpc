@@ -17,14 +17,14 @@ async function getPresence(userIds) {
 
 // Resolve placeId → game info
 async function getGameInfo(placeId) {
-  if (!placeId) return null;
+  if (!placeId || placeId === 0) return null;
 
   try {
     const res = await axios.get(
-      `https://games.roblox.com/v1/games/multiget-place-details?placeIds=${placeId}`
+      `https://games.roblox.com/v1/games?universeIds=${placeId}`
     );
 
-    return res.data?.[0] || null;
+    return res.data?.data?.[0] || null;
   } catch {
     return null;
   }

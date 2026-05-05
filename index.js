@@ -85,10 +85,13 @@ async function buildEmbed(presences, mapping) {
     if (presence?.userPresenceType === 2) {
       const game = await getGameInfo(presence.placeId);
 
-      const gameName =
-        game?.name ||
-        presence.lastLocation ||
-        "Unknown experience";
+      let gameName = "Unknown experience";
+
+    if (game?.name) {
+      gameName = game.name;
+    } else if (presence.lastLocation && presence.lastLocation !== "Website") {
+      gameName = presence.lastLocation;
+}
 
       status = `In game: ${gameName}`;
     }
